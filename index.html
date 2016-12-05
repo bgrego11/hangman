@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Stylish Portfolio - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Tangerine:700" rel="stylesheet">
+
+</head>
+
+<body>
+
+    
+
+   <!-- Navigation -->
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">Main menu</li>
+            <li id="score">Score</li>
+            <li id="chances">Remaining Guesses</li>
+            <li>Words You Got Right</li>
+            <ll ><ul id="rightGuess"></ul></li>
+                </div>
+            </li>
+        </ul>
+        <button type="button" class="btn btn-info pull-right" id="newGame"><span class="glyphicon glyphicon-refresh pull-left" aria-hidden="true"></span> New Game</button>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="text-vertical-center">
+            <div class="con">
+                <h1>Hangman</h1>
+                <h3 id ="game"></h3>
+            </div>  
+        </div>
+    </header>
+
+   
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Opens the sidebar menu
+    jQuery(document).ready(function($) {
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+
+ 
+    </script>
+    <script type="text/javascript">
+        
+
+        String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+};
+
+    var game = {
+        //set up variables/arrays 
+        bank : ['andorra', 'afghanistan', 'anguilla', 'albania', 'armenia', 'angola', 'antarctica', 'argentina', 'austria', 'australia', 'aruba', 'azerbaijan', 'barbados', 'bangladesh', 'belgium', 'bulgaria', 'bahrain', 'burundi', 'benin', 'bermuda', 'bolivia', 'brazil', 'bahamas', 'bhutan', 'botswana', 'belarus', 'belize', 'canada', 'congo', 'switzerland', 'chile', 'cameroon', 'china', 'colombia', 'cuba', 'cyprus', 'germany', 'djibouti', 'denmark', 'dominica', 'algeria', 'ecuador', 'estonia', 'egypt', 'eritrea', 'spain', 'ethiopia', 'finland', 'fiji', 'france', 'gabon', 'grenada', 'georgia', 'guernsey', 'ghana', 'gibraltar', 'greenland', 'gambia', 'guinea', 'guadeloupe', 'greece', 'guatemala', 'guam', 'guinea-bissau', 'guyana', 'honduras', 'croatia', 'haiti', 'hungary', 'indonesia', 'ireland', 'india', 'iraq', 'iran', 'iceland', 'italy', 'jersey', 'jamaica', 'jordan', 'japan', 'kenya', 'kyrgyzstan', 'cambodia', 'kiribati', 'comoros', 'kuwait', 'kazakhstan', 'lebanon', 'liechtenstein', 'liberia', 'lesotho', 'lithuania', 'luxembourg', 'latvia', 'libya', 'morocco', 'monaco', 'moldova', 'montenegro', 'madagascar', 'macedonia', 'mali', 'myanmar', 'mongolia', 'macau', 'martinique', 'mauritania', 'montserrat', 'malta', 'mauritius', 'maldives', 'malawi', 'mexico', 'malaysia', 'mozambique', 'namibia', 'niger', 'nigeria', 'nicaragua', 'norway', 'nepal', 'nauru', 'niue', 'oman', 'panama', 'peru', 'philippines', 'pakistan', 'poland', 'pitcairn', 'portugal', 'palau', 'paraguay', 'qatar', 'romania', 'serbia', 'rwanda', 'seychelles', 'sudan', 'sweden', 'singapore', 'slovenia', 'slovakia', 'senegal', 'somalia', 'suriname', 'syria', 'swaziland', 'chad', 'togo', 'thailand', 'tajikistan', 'tokelau', 'turkmenistan', 'tunisia', 'tonga', 'turkey', 'tuvalu', 'taiwan', 'tanzania', 'ukraine', 'uganda', 'uruguay', 'uzbekistan', 'vatican', 'venezuela', 'vietnam', 'vanuatu', 'samoa', 'yemen', 'mayotte', 'zambia', 'zimbabwe', 'palestine'],
+        mask : "",
+        word : "",
+        guessed : [],
+        chances : 10,
+        correct: [],
+        writeSound : new Audio('music/write.mp3'),
+        score : 0,
+        scoreSound: new Audio('music/win.mp3'),
+        loseSound: new Audio('music/no.mp3'),
+        checkLose: function() {
+            if (this.choice = 0) {
+                this.loseSound.play();
+            };
+        },
+        //function to select neww word
+        wordGrab : function() {
+                
+                    this.word = this.bank[Math.floor(Math.random() * this.bank.length)];
+                    this.mask = Array(this.word.length+1).join("-");
+                    document.querySelector("#game").innerHTML = this.mask;
+                    this.guessed = [];
+                    this.chances = 10;
+                    document.getElementById("chances").innerHTML = "Guesses Remaining: " + this.chances;
+
+                
+            },
+        choice: function(input) {
+            //checks if the lost
+            if (this.chances > 0)  {
+                if (this.guessed.indexOf(input) < 0) {
+                    var rep = []
+                    x = this.word.indexOf(input);
+                        while(x >= 0) {
+                            rep.push(x);
+                            x = this.word.indexOf(input, x+1);
+                        };
+                    if (rep.length > 0) {
+                        for (i in rep) {
+                            this.mask = this.mask.replaceAt(rep[i],input);
+                            };
+                        document.querySelector("#game").innerHTML = this.mask;
+                        this.guessed.push(input);
+                        this.writeSound.play();
+                        //line for handling  completed word
+                        if (this.mask.indexOf("-") < 0) {
+                            right = document.createElement("li");
+                            right.innerHTML= this.word;
+                            document.getElementById("rightGuess").appendChild(right);
+                            this.score ++;
+                            document.getElementById("score").innerHTML="Score: " + this.score;
+                            this.scoreSound.play();
+                            this.bank.splice(this.bank.indexOf(this.word));
+                            this.wordGrab();
+                            }
+
+                        }
+                        else {
+                        this.guessed.push(input);
+                        this.chances -= 1;                        
+                        document.getElementById("chances").innerHTML = "Guesses Remaining: " + this.chances;
+                        this.loseSound.play();
+                        };
+                        
+                        }
+                    
+                    
+                    };
+            },
+        newGame: function() {
+            this.wordGrab();
+            document.getElementById("rightGuess").innerHTML ="";
+            this.chances = 10;
+            document.getElementById("chances").innerHTML = "Guesses Remaining: " + this.chances;
+            this.score = 0;
+            document.getElementById("score").innerHTML="Score: " + this.score;
+            this.guessed = [];
+            this.correct= [];
+        }
+            
+
+};  
+
+game.wordGrab();
+
+
+document.onkeyup = function(event) {
+            var input = String.fromCharCode(event.keyCode).toLowerCase();
+
+                game.choice(input);
+            };
+$('#newGame').on("click", function(){
+    game.newGame();
+    
+   
+});
+
+
+
+    
+
+        
+    </script>
+</body>
+
+</html>
