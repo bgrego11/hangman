@@ -88,12 +88,8 @@
         writeSound : new Audio('music/write.mp3'),
         score : 0,
         scoreSound: new Audio('music/win.mp3'),
-        loseSound: new Audio('music/no.mp3'),
-        checkLose: function() {
-            if (this.choice = 0) {
-                this.loseSound.play();
-            };
-        },
+        wrongSound: new Audio('music/no.mp3'),
+        loseSound: new Audio('music/lose.mp3'),
         //function to select neww word
         wordGrab : function() {
                 
@@ -139,12 +135,15 @@
                         this.guessed.push(input);
                         this.chances -= 1;                        
                         document.getElementById("chances").innerHTML = "Guesses Remaining: " + this.chances;
-                        this.loseSound.play();
+                        this.wrongSound.play();
                         };
                         
                         }
                     
                     
+                    }
+                    else {
+                        this.loseSound.play();
                     };
             },
         newGame: function() {
