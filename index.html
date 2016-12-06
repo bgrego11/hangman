@@ -39,6 +39,7 @@
                 </div>
             </li>
         </ul>
+        <div id="buttons"></div>
         <button type="button" class="btn btn-info pull-right" id="newGame"><span class="glyphicon glyphicon-refresh pull-left" aria-hidden="true"></span> New Game</button>
     </nav>
 
@@ -50,7 +51,10 @@
                 <h3 id ="game"></h3>
             </div>  
         </div>
+
     </header>
+
+    
 
    
 
@@ -80,6 +84,7 @@
     var game = {
         //set up variables/arrays 
         bank : ['andorra', 'afghanistan', 'anguilla', 'albania', 'armenia', 'angola', 'antarctica', 'argentina', 'austria', 'australia', 'aruba', 'azerbaijan', 'barbados', 'bangladesh', 'belgium', 'bulgaria', 'bahrain', 'burundi', 'benin', 'bermuda', 'bolivia', 'brazil', 'bahamas', 'bhutan', 'botswana', 'belarus', 'belize', 'canada', 'congo', 'switzerland', 'chile', 'cameroon', 'china', 'colombia', 'cuba', 'cyprus', 'germany', 'djibouti', 'denmark', 'dominica', 'algeria', 'ecuador', 'estonia', 'egypt', 'eritrea', 'spain', 'ethiopia', 'finland', 'fiji', 'france', 'gabon', 'grenada', 'georgia', 'guernsey', 'ghana', 'gibraltar', 'greenland', 'gambia', 'guinea', 'guadeloupe', 'greece', 'guatemala', 'guam', 'guinea-bissau', 'guyana', 'honduras', 'croatia', 'haiti', 'hungary', 'indonesia', 'ireland', 'india', 'iraq', 'iran', 'iceland', 'italy', 'jersey', 'jamaica', 'jordan', 'japan', 'kenya', 'kyrgyzstan', 'cambodia', 'kiribati', 'comoros', 'kuwait', 'kazakhstan', 'lebanon', 'liechtenstein', 'liberia', 'lesotho', 'lithuania', 'luxembourg', 'latvia', 'libya', 'morocco', 'monaco', 'moldova', 'montenegro', 'madagascar', 'macedonia', 'mali', 'myanmar', 'mongolia', 'macau', 'martinique', 'mauritania', 'montserrat', 'malta', 'mauritius', 'maldives', 'malawi', 'mexico', 'malaysia', 'mozambique', 'namibia', 'niger', 'nigeria', 'nicaragua', 'norway', 'nepal', 'nauru', 'niue', 'oman', 'panama', 'peru', 'philippines', 'pakistan', 'poland', 'pitcairn', 'portugal', 'palau', 'paraguay', 'qatar', 'romania', 'serbia', 'rwanda', 'seychelles', 'sudan', 'sweden', 'singapore', 'slovenia', 'slovakia', 'senegal', 'somalia', 'suriname', 'syria', 'swaziland', 'chad', 'togo', 'thailand', 'tajikistan', 'tokelau', 'turkmenistan', 'tunisia', 'tonga', 'turkey', 'tuvalu', 'taiwan', 'tanzania', 'ukraine', 'uganda', 'uruguay', 'uzbekistan', 'vatican', 'venezuela', 'vietnam', 'vanuatu', 'samoa', 'yemen', 'mayotte', 'zambia', 'zimbabwe', 'palestine'],
+        letters : ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"],
         mask : "",
         word : "",
         guessed : [],
@@ -161,7 +166,24 @@
 };  
 
 game.wordGrab();
+var buttonDiv = $('#buttons');
+for (i in game.letters) {
+      newButton = $("<button>");
+      newButton.html(game.letters[i]);
+      newButton.attr({
+        "class" : "letter-button letter letter-button-color",
+        "data-letter" : game.letters[i]
+    });
+      newButton.css({
+        border: '3px solid black'
+      });
+      buttonDiv.append(newButton);
+    };
 
+
+$('.letter-button').on("click", function() {
+    game.choice($(this).data('letter').toLowerCase());
+});
 
 document.onkeyup = function(event) {
             var input = String.fromCharCode(event.keyCode).toLowerCase();

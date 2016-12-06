@@ -229,7 +229,21 @@ hr.small {
     border-color: #991;
 }
 
+#buttons {
+        width: 100%;
+        position: absolute;
+        bottom: 36px;
+    }
+
+
 @media screen and (max-width: 640px) {
+
+    #buttons {
+        width: 100%;
+        position: relative;
+        bottom: 0;
+    }
+
     #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
