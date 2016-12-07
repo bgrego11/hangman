@@ -22,6 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Tangerine:700" rel="stylesheet">
 
+
+
 </head>
 
 <body>
@@ -30,17 +32,26 @@
 
    <!-- Navigation -->
     <nav id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">Main menu</li>
-            <li id="score">Score</li>
-            <li id="chances">Remaining Guesses</li>
-            <li>Words You Got Right</li>
-            <ll ><ul id="rightGuess"></ul></li>
-                </div>
-            </li>
-        </ul>
-        <div id="buttons"></div>
-        <button type="button" class="btn btn-info pull-right" id="newGame"><span class="glyphicon glyphicon-refresh pull-left" aria-hidden="true"></span> New Game</button>
+       <div id="accordion">
+          <h3>Game Stats</h3>
+            <div>
+                <ul>
+                    <li id="score">Score</li>
+                     <li id="chances">Remaining Guesses</li>
+                </ul>
+            </div>
+          <h3>Words Guessed Correctly</h3>
+          <div>
+            <ul id="rightGuess"></ul>
+          </div>
+          <h3>Keyboard</h3>
+          <div>
+            <div id="buttons"></div>
+          </div>
+          <h3>New Game</h3>
+          <div>
+             <button type="button" class="btn btn-info pull-right" id="newGame"><span class="glyphicon glyphicon-refresh pull-left" aria-hidden="true"></span> New Game</button>
+          </div>
     </nav>
 
     <!-- Header -->
@@ -74,6 +85,23 @@
 
  
     </script>
+        <!-- script for collapsable menu -->
+    <link href="css/jquery-ui.css" rel="stylesheet">
+    <link href="css/jquery-ui.structure.css" rel="stylesheet">
+    <link href="css/jquery-ui.theme.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+              crossorigin="anonymous"></script>
+              <link href="css/jquery-ui.css" rel="stylesheet">
+    <script src="js/jquery-ui.js"></script>
+
+
+    <script>
+  $( function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  } );
+  </script>
     <script type="text/javascript">
         
 
