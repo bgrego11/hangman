@@ -192,6 +192,20 @@ hr.small {
         position: relative;
         bottom: 0;
     }
+    
+    .con {
+    width: 100%;
+    background-image: url("../img/old_paper.jpg");
+    margin-right: 0%;
+    margin-left: 0%;
+    border-radius: 103px 104px 93px 93px;
+    -moz-border-radius: 103px 104px 93px 93px;
+    -webkit-border-radius: 103px 104px 93px 93px;
+    border: 5px ridge #000000;
+    font-family: 'Tangerine',cursive;
+    font-weight: bold;
+    font-size: 35px;
+}
 
     #sidebar-wrapper {
     z-index: 1000;
