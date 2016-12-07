@@ -132,6 +132,24 @@
                     this.guessed = [];
                     this.chances = 10;
                     document.getElementById("chances").innerHTML = "Guesses Remaining: " + this.chances;
+                    var buttonDiv = $('#buttons');
+                    buttonDiv.empty();
+                    for (i in game.letters) {
+                          newButton = $("<button>");
+                          newButton.html(game.letters[i]);
+                          newButton.attr({
+                            "class" : "letter-button letter letter-button-color",
+                            "data-letter" : game.letters[i]
+                        });
+                          newButton.css({
+                            border: '3px solid black'
+                          });
+                          buttonDiv.append(newButton);
+                        };
+                        $('.letter-button').on("click", function() {
+                            game.choice($(this).data('letter').toLowerCase());
+                        });
+
 
                 
             },
@@ -152,6 +170,7 @@
                         document.querySelector("#game").innerHTML = this.mask;
                         this.guessed.push(input);
                         this.writeSound.play();
+
                         //line for handling  completed word
                         if (this.mask.indexOf("-") < 0) {
                             right = document.createElement("li");
@@ -178,6 +197,8 @@
                     else {
                         this.loseSound.play();
                     };
+
+                    $('*[data-letter='+input.toUpperCase()+']').remove();
             },
         newGame: function() {
             this.wordGrab();
@@ -194,24 +215,9 @@
 };  
 
 game.wordGrab();
-var buttonDiv = $('#buttons');
-for (i in game.letters) {
-      newButton = $("<button>");
-      newButton.html(game.letters[i]);
-      newButton.attr({
-        "class" : "letter-button letter letter-button-color",
-        "data-letter" : game.letters[i]
-    });
-      newButton.css({
-        border: '3px solid black'
-      });
-      buttonDiv.append(newButton);
-    };
 
 
-$('.letter-button').on("click", function() {
-    game.choice($(this).data('letter').toLowerCase());
-});
+
 
 document.onkeyup = function(event) {
             var input = String.fromCharCode(event.keyCode).toLowerCase();
